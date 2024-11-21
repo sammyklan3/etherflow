@@ -1,14 +1,14 @@
-import { useAccount } from 'wagmi';
-import WalletOptions from './WalletOptions';
-import ConnectWallet from './ConnectWallet';
+import { useAccount } from "wagmi";
+import WalletOptions from "./WalletOptions";
+import ConnectWallet from "./ConnectWallet";
 
-function CheckWallet(){
-    const { isConnected } = useAccount();
+function CheckWallet() {
+  const { isConnected } = useAccount();
 
-    if(isConnected){
-        return <ConnectWallet />
-    }
-    return <WalletOptions />
+  if (isConnected) {
+    return <ConnectWallet />;
+  }
+  return <WalletOptions />;
 }
 
 const Profile = () => {
@@ -16,7 +16,7 @@ const Profile = () => {
     <div>
       <CheckWallet />
     </div>
-  )
-}
+  );
+};
 
 export default Profile;

@@ -2,8 +2,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Landing from "./pages/Landing";
 import SendTransaction from "./pages/SendTransaction";
 import { WagmiProvider } from "wagmi";
-import { ConnectKitProvider } from 'connectkit';
+import { ConnectKitProvider } from "connectkit";
 import { config } from "../config/wagmi";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
@@ -11,24 +13,26 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Landing />
+    element: <Landing />,
   },
 
   {
     path: "/send",
-    element: <SendTransaction />
-  }
+    element: <SendTransaction />,
+  },
 ]);
 
 function App() {
   return (
     <div className="min-h-screen bg-white">
       <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-        <ConnectKitProvider theme="midnight">
+        <QueryClientProvider client={queryClient}>
+          <ConnectKitProvider theme="midnight">
             <RouterProvider router={router} />
-        </ConnectKitProvider>
-          </QueryClientProvider>
+            <Analytics />
+            <SpeedInsights />
+          </ConnectKitProvider>
+        </QueryClientProvider>
       </WagmiProvider>
     </div>
   );

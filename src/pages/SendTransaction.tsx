@@ -1,10 +1,15 @@
-import { useState, useEffect } from 'react';
-import { type BaseError, useAccount, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
-import { Toaster, toast } from 'react-hot-toast';
-import { Send, Loader2 } from 'lucide-react';
-import { parseEther } from 'viem';
-import ConnectWallet from '../components/ConnectWallet';
-import TransactionCard from '../components/TransactionCard';
+import { useState, useEffect } from "react";
+import {
+  type BaseError,
+  useAccount,
+  useSendTransaction,
+  useWaitForTransactionReceipt,
+} from "wagmi";
+import { Toaster, toast } from "react-hot-toast";
+import { Send, Loader2 } from "lucide-react";
+import { parseEther } from "viem";
+import ConnectWallet from "../components/ConnectWallet";
+import TransactionCard from "../components/TransactionCard";
 
 interface FormData {
   address: string;
@@ -12,15 +17,23 @@ interface FormData {
 }
 
 function SendTransaction() {
-
-  document.title = "Etherflow - Send"
+  document.title = "Etherflow - Send";
   // Form data state
-  const [formData, setFormData] = useState<FormData>({ address: '', amount: '' });
+  const [formData, setFormData] = useState<FormData>({
+    address: "",
+    amount: "",
+  });
   const [isOpen, setIsOpen] = useState(false);
 
   // Wagmi hooks
-  const { sendTransaction, isPending, data: hash, error } = useSendTransaction();
-  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash });
+  const {
+    sendTransaction,
+    isPending,
+    data: hash,
+    error,
+  } = useSendTransaction();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({ hash });
 
   // Handle transaction confirmation and toast notification
   useEffect(() => {
@@ -31,7 +44,9 @@ function SendTransaction() {
   }, [isConfirmed, hash]);
 
   if (error) {
-    toast.error(`Failed to send transaction: ${(error as BaseError).shortMessage || error.message}`);
+    toast.error(
+      `Failed to send transaction: ${(error as BaseError).shortMessage || error.message}`
+    );
   }
 
   const { isConnected } = useAccount();
@@ -44,7 +59,7 @@ function SendTransaction() {
 
     // Validation
     if (!address || !amount) {
-      toast.error('Please fill in all fields.');
+      toast.error("Please fill in all fields.");
       return;
     }
 
@@ -75,7 +90,10 @@ function SendTransaction() {
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-sm font-medium mb-2" htmlFor="address">
+              <label
+                className="block text-sm font-medium mb-2"
+                htmlFor="address"
+              >
                 Recipient Address
               </label>
               <input
@@ -90,7 +108,10 @@ function SendTransaction() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2" htmlFor="amount">
+              <label
+                className="block text-sm font-medium mb-2"
+                htmlFor="amount"
+              >
                 Amount (ETH)
               </label>
               <input
@@ -108,7 +129,13 @@ function SendTransaction() {
 
             <button
               type="submit"
-              disabled={!isConnected || isPending || !formData.address || !formData.amount || isConfirmed}
+              disabled={
+                !isConnected ||
+                isPending ||
+                !formData.address ||
+                !formData.amount ||
+                isConfirmed
+              }
               className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
             >
               {isPending ? (
@@ -134,9 +161,12 @@ function SendTransaction() {
       <Toaster position="top-right" />
 
       {isConfirmed && hash && (
-        <TransactionCard hash={hash || ''} isOpen={isOpen} setIsOpen={setIsOpen} />
+        <TransactionCard
+          hash={hash || ""}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
       )}
-
     </div>
   );
 }

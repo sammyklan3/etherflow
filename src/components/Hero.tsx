@@ -1,5 +1,5 @@
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -13,11 +13,15 @@ export default function Hero() {
                 <span className="block text-indigo-600">Instantly</span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-              Send and receive Ethereum securely across multiple networks fast with no fees required.
+                Send and receive Ethereum securely across multiple networks fast
+                with no fees required.
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
-                  <Link to="/send" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                  <Link
+                    to="/send"
+                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                  >
                     Get Started
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>

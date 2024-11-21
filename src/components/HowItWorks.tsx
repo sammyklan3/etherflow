@@ -1,29 +1,30 @@
-import React from 'react';
-import { PackageCheck, Link, Coins, CheckCircle } from 'lucide-react';
+import React from "react";
+import { PackageCheck, Link, Coins, CheckCircle } from "lucide-react";
 
 const steps = [
   {
-    title: 'Connect Your Wallet',
-    description: 'Link your wallet of choice to the platform',
+    title: "Connect Your Wallet",
+    description: "Link your wallet of choice to the platform",
     icon: Link,
   },
   {
-    title: 'Start Transacting',
-    description: 'Send Ethereum on your network of choice with just a few clicks',
+    title: "Start Transacting",
+    description:
+      "Send Ethereum on your network of choice with just a few clicks",
     icon: Coins,
   },
   {
-    title: 'Confirm Transaction',
-    description: 'Review and confirm the details of your transaction before sending',
+    title: "Confirm Transaction",
+    description:
+      "Review and confirm the details of your transaction before sending",
     icon: PackageCheck, // You can replace this with a suitable icon
   },
   {
-    title: 'Track Your Transaction',
-    description: 'Verify your transaction on the blockchain',
+    title: "Track Your Transaction",
+    description: "Verify your transaction on the blockchain",
     icon: CheckCircle,
   },
 ];
-
 
 export default function HowItWorks() {
   return (
@@ -53,8 +54,12 @@ export default function HowItWorks() {
                   <span className="absolute -left-8 top-6 w-8 text-center text-sm font-medium text-indigo-600 hidden lg:block">
                     {index + 1}
                   </span>
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">{step.title}</h3>
-                  <p className="mt-2 text-base text-gray-500">{step.description}</p>
+                  <h3 className="text-lg leading-6 font-medium text-gray-900">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-base text-gray-500">
+                    {step.description}
+                  </p>
                 </div>
               </div>
             ))}

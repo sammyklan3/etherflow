@@ -1,10 +1,8 @@
-import React from 'react'
-import { ConnectKitButton } from 'connectkit'
+import React from "react";
+import { ConnectKitButton } from "connectkit";
 
 const ConnectWallet = () => {
-  return (
-    <ConnectKitButton />
-  )
-}
+  return <ConnectKitButton />;
+};
 
 export default ConnectWallet;

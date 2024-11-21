@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { BadgeCheck } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { BadgeCheck } from "lucide-react";
 
 interface TransactionCardProps {
   hash: string;
@@ -7,7 +7,11 @@ interface TransactionCardProps {
   setIsOpen: (isOpen: boolean) => void;
 }
 
-const TransactionCard: React.FC<TransactionCardProps> = ({ hash, isOpen, setIsOpen }) => {
+const TransactionCard: React.FC<TransactionCardProps> = ({
+  hash,
+  isOpen,
+  setIsOpen,
+}) => {
   return (
     <div
       className={`${
