@@ -80,6 +80,8 @@ function ContractTester() {
   const [abi, setAbi] = useState("");
   const [isRead, setIsRead] = useState(true);
 
+  document.title = "Smart Contract Tester - Etherflow";
+
   const {
     writeContract,
     isError: writeError,
