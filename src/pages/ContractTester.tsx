@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAccount, useWriteContract, useReadContract } from "wagmi";
 import { Code2, PlayCircle, AlertCircle } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -20,19 +20,17 @@ function Navbar() {
             />
           </NavLink>
           <div className="hidden md:flex items-center space-x-8">
-            {/* Links go here */}
             <NavLink
               to="/send"
               className="text-gray-600 hover:text-indigo-600 transition-colors"
             >
-                Send Tokens
+              Send Tokens
             </NavLink>
-            {/* TODO: Create this page */}
             <NavLink
               to="#"
               className="text-gray-600 hover:text-indigo-600 transition-colors"
             >
-                Faucet
+              Faucet
             </NavLink>
           </div>
           <ConnectWallet />
@@ -50,21 +48,18 @@ function Navbar() {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-b">
-            {/* Links go here */}
             <NavLink
               to="/send"
               className="text-gray-600 hover:text-indigo-600 transition-colors"
             >
-                Send Tokens
+              Send Tokens
             </NavLink>
-            {/* TODO: Create this page */}
             <NavLink
               to="#"
               className="text-gray-600 hover:text-indigo-600 transition-colors"
             >
-                Faucet
+              Faucet
             </NavLink>
-            <ConnectWallet />
           </div>
         </div>
       )}
@@ -76,42 +71,100 @@ function ContractTester() {
   const { address } = useAccount();
   const [contractAddress, setContractAddress] = useState("");
   const [functionName, setFunctionName] = useState("");
-  const [functionArgs, setFunctionArgs] = useState("");
-  const [abi, setAbi] = useState("");
+  const [functionArgs, setFunctionArgs] = useState("[]");
+  const [abi, setAbi] = useState("[]");
   const [isRead, setIsRead] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   document.title = "Smart Contract Tester - Etherflow";
 
-  const {
-    writeContract,
-    isError: writeError,
-    isPending: writeLoading,
-  } = useWriteContract();
-  const {
-    data: readResult,
-    isError: readError,
-    isLoading: readLoading,
-  } = useReadContract({
+  const safeParseJson = (input: string, fallback: any = null) => {
+    try {
+      return JSON.parse(input);
+    } catch {
+      return fallback;
+    }
+  };
+
+  const isValidAddress = (address: string) =>
+    /^0x[a-fA-F0-9]{40}$/.test(address);
+
+  const { writeContract, isError: writeError } = useWriteContract();
+
+  const { data: readResult, isPending: readLoading } = useReadContract({
     address: contractAddress as `0x${string}`,
-    abi: abi ? JSON.parse(abi) : [],
+    abi: safeParseJson(abi, []),
     functionName,
-    args: functionArgs ? JSON.parse(functionArgs) : [],
+    args: safeParseJson(functionArgs, []),
     enabled: isRead && !!contractAddress && !!functionName && !!abi,
   });
 
+  useEffect(() => {
+    if (writeError) {
+      setErrorMessage("Error executing write: " + writeError.message);
+    }
+  }, [writeError]);
+
+  const validateInputs = () => {
+    if (!contractAddress) {
+      setErrorMessage("Contract address is required.");
+      return false;
+    }
+    if (!isValidAddress(contractAddress)) {
+      setErrorMessage("Invalid Ethereum address.");
+      return false;
+    }
+    if (!safeParseJson(abi)) {
+      setErrorMessage("Invalid ABI. Ensure it is valid JSON.");
+      return false;
+    }
+    if (!safeParseJson(functionArgs, []).length && !isRead) {
+      setErrorMessage(
+        "Invalid function arguments. Ensure it's a JSON array, e.g., ['0x...', '100']."
+      );
+      return false;
+    }
+    setErrorMessage("");
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isRead) {
-      try {
-        writeContract({
+
+    if (!validateInputs()) return;
+
+    const parsedAbi = safeParseJson(abi, []);
+    const parsedArgs = safeParseJson(functionArgs, []);
+
+    setIsLoading(true);
+
+    // Console log all variables
+    console.log("Contract Address:", contractAddress);
+    console.log("Function Name:", functionName);
+    console.log("Function Arguments:", functionArgs);
+    console.log("ABI:", abi);
+    console.log("Is Read:", isRead);
+    console.log("Error Message:", errorMessage);
+    console.log("Is Loading:", isLoading);
+
+    try {
+      if (isRead) {
+        console.log("Read result:", readResult);
+      } else {
+        await writeContract({
           address: contractAddress as `0x${string}`,
-          abi: JSON.parse(abi),
+          abi: parsedAbi,
           functionName,
-          args: functionArgs ? JSON.parse(functionArgs) : [],
+          args: parsedArgs,
         });
-      } catch (error) {
-        console.error("Error executing contract:", error);
+        console.log("Write successful");
       }
+    } catch (error) {
+      console.error("Error executing contract:", error);
+      setErrorMessage("Error interacting with the contract. Check console for details.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -211,30 +264,25 @@ function ContractTester() {
               </div>
             )}
 
+            {errorMessage && (
+              <div className="text-sm text-red-600 bg-red-100 border border-red-400 rounded-md p-2">
+                {errorMessage}
+              </div>
+            )}
+
             <button
               type="submit"
-              disabled={!address || writeLoading || readLoading}
-              className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={!address || isLoading || readLoading}
+              className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 disabled:opacity-50"
             >
               <PlayCircle className="w-5 h-5" />
-              {writeLoading || readLoading
+              {readLoading || isLoading
                 ? "Processing..."
-                : "Execute Contract"}
+                : isRead
+                ? "Read Contract"
+                : "Write Contract"}
             </button>
           </form>
-
-          {(readResult || writeError || readError) && (
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2">
-                Result:
-              </h2>
-              <pre className="whitespace-pre-wrap break-words text-sm">
-                {readResult
-                  ? JSON.stringify(readResult, null, 2)
-                  : "Error executing contract"}
-              </pre>
-            </div>
-          )}
         </div>
       </main>
     </div>

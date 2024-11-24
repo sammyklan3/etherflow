@@ -1,4 +1,4 @@
-import { Menu, ArrowRight} from "lucide-react";
+import { Menu, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import ConnectWallet from "./ConnectWallet";
 import { Link, NavLink } from "react-router-dom";
@@ -9,9 +9,12 @@ export default function Navbar() {
   return (
     <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
       <div className="bg-black backdrop-blur-md text-gray-300">
-        <Link to="/contract-tester" className="text-sm flex justify-center gap-2 items-center">
-        Test Smart contracts feature now released!
-        <ArrowRight className="text-green-500"/>
+        <Link
+          to="/contract-tester"
+          className="text-sm flex justify-center gap-2 items-center"
+        >
+          Test Smart contracts feature now released!
+          <ArrowRight className="text-green-500" />
         </Link>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
