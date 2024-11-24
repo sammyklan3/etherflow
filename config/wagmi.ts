@@ -1,16 +1,18 @@
-import { http, createConfig } from "wagmi";
-import { sepolia, mainnet, base, baseSepolia } from "wagmi/chains";
-import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
+import { http } from "wagmi";
+import { mainnet, sepolia, baseSepolia, base } from "wagmi/chains";
+import { createConfig } from "wagmi";
+import { getDefaultConfig } from "connectkit";
 
-const projectId = "<WALLETCONNECT_PROJECT_ID>";
-
-export const config = createConfig({
-  chains: [sepolia, mainnet, baseSepolia, base],
-  connectors: [injected(), walletConnect({ projectId }), metaMask(), safe()],
-  transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-    [base.id]: http(),
-    [baseSepolia.id]: http(),
-  },
-});
+export const config = createConfig(
+  getDefaultConfig({
+    walletConnectProjectId: "YOUR_WALLET_CONNECT_PROJECT_ID", // Replace with your project ID
+    chains: [mainnet, sepolia, baseSepolia, base],
+    transports: {
+      [mainnet.id]: http(),
+      [sepolia.id]: http(),
+      [baseSepolia.id]: http(),
+      [base.id]: http(),
+    },
+    appName: "Etherflow",
+  })
+);

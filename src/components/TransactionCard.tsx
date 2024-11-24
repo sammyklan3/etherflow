@@ -54,7 +54,9 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
             View the transaction
           </Link>
         ) : (
-          <span className="text-gray-400 text-sm">Block explorer not available for this chain</span>
+          <span className="text-gray-400 text-sm">
+            Block explorer not available for this chain
+          </span>
         )}
       </div>
     </div>

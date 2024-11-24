@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Landing from "./pages/Landing";
 import SendTransaction from "./pages/SendTransaction";
+import ContractTester from "./pages/ContractTester";
 import { WagmiProvider } from "wagmi";
 import { ConnectKitProvider } from "connectkit";
 import { config } from "../config/wagmi";
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/send",
     element: <SendTransaction />,
+  },
+  {
+    path: "/contract-tester",
+    element: <ContractTester />,
   },
 ]);
 
