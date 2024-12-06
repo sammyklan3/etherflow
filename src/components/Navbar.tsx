@@ -10,10 +10,10 @@ export default function Navbar() {
     <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
       <div className="bg-black backdrop-blur-md text-gray-300">
         <Link
-          to="/contract-tester"
+          to="/batch-transfer"
           className="text-sm flex justify-center gap-2 items-center"
         >
-          Test Smart contracts feature now released!
+          Batch Transfer feature now released!
           <ArrowRight className="text-green-500" />
         </Link>
       </div>

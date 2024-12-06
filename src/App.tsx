@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Landing from "./pages/Landing";
 import SendTransaction from "./pages/SendTransaction";
 import ContractTester from "./pages/ContractTester";
+import BatchTransfer from "./pages/BatchTransfer";
 import { WagmiProvider } from "wagmi";
 import { ConnectKitProvider } from "connectkit";
 import { config } from "../config/wagmi";
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/contract-tester",
     element: <ContractTester />,
+  },
+  {
+    path: "/batch-transfer",
+    element: <BatchTransfer />,
   },
 ]);
 

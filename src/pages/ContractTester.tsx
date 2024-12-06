@@ -162,7 +162,9 @@ function ContractTester() {
       }
     } catch (error) {
       console.error("Error executing contract:", error);
-      setErrorMessage("Error interacting with the contract. Check console for details.");
+      setErrorMessage(
+        "Error interacting with the contract. Check console for details."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -279,8 +281,8 @@ function ContractTester() {
               {readLoading || isLoading
                 ? "Processing..."
                 : isRead
-                ? "Read Contract"
-                : "Write Contract"}
+                  ? "Read Contract"
+                  : "Write Contract"}
             </button>
           </form>
         </div>
