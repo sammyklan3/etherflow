@@ -7,6 +7,8 @@ import { NavLink } from "react-router-dom";
 function BatchTransfer() {
   const [isOpen, setIsOpen] = useState(false);
 
+  document.title = "Batch Transfer | Etherflow";
+
   return (
     <div className="min-h-screen bg-gray-100">
       <nav className="w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100 mb-12">
