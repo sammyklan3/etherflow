@@ -20,7 +20,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
     11155111: "https://sepolia.etherscan.io/tx/", // Sepolia
     1: "https://etherscan.io/tx/", // Ethereum Mainnet
     8453: "https://base.blockscout.com/tx/", // Base Mainnet
-    84532: "https://sepolia.basescan.org/tx/", // Base Sepolia
+    84532: "https://base-sepolia.blockscout.com/tx/", // Base Sepolia
   };
 
   // Get the chain ID from the public client
@@ -31,13 +31,13 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
     <div
       className={`${
         isOpen ? "flex flex-col" : "hidden"
-      } bg-gradient-to-br from-gray-900 to-gray-800 p-4 rounded-lg shadow-lg absolute z-50`}
+      } fixed inset-0 flex items-center justify-center bg-gray-300 p-4 rounded-lg shadow-lg z-50 w-[30%] m-auto h-min`}
     >
       {/* Success Icon */}
       <BadgeCheck className="inline-block h-[300px] w-[300px] text-green-500" />
 
       {/* Transaction Details */}
-      <div className="flex w-full justify-between mt-4">
+      <div className="flex w-full justify-between mt-4 bg-white p-4 rounded-lg shadow-md">
         <button
           onClick={() => setIsOpen(false)}
           className="bg-gray-300 px-5 rounded-lg text-black"

@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { BatchTransferForm } from "../components/BatchTransfer/BatchTansferForm";
-import ConnectWallet from "../components/ConnectWallet";
-import { Menu } from "lucide-react";
+import RecurringPaymentsList from "../components/RecurringPaymentsList";
+import { RecurringPaymentForm } from "../components/RecurringPaymentForm";
 import { NavLink } from "react-router-dom";
+import { Menu } from "lucide-react";
+import ConnectWallet from "../components/ConnectWallet";
 
-function BatchTransfer() {
+function RecurringPayment() {
   const [isOpen, setIsOpen] = useState(false);
 
-  document.title = "Batch Transfer | Etherflow";
+  document.title = "Recurring Payments | Etherflow";
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -28,17 +29,17 @@ function BatchTransfer() {
               >
                 Send Tokens
               </NavLink>
-              <NavLink 
-              to="/contract-tester"
-              className="text-gray-600 hover:text-indigo-600 transition-colors"
-              >
-                Test Smart Contract
-              </NavLink>
               <NavLink
-                to="/recurring-payment"
+                to="/batch-transfer"
                 className="text-gray-600 hover:text-indigo-600 transition-colors"
               >
-                Recurring Payment
+                Batch Transfer
+              </NavLink>
+              <NavLink
+                to="/contract-tester"
+                className="text-gray-600 hover:text-indigo-600 transition-colors"
+              >
+                Test smart contracts
               </NavLink>
               <NavLink
                 to="#"
@@ -78,12 +79,18 @@ function BatchTransfer() {
           </div>
         )}
       </nav>
-
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <BatchTransferForm />
-      </main>
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div>
+            <RecurringPaymentForm onSuccess={() => {}} />
+          </div>
+          <div>
+            <RecurringPaymentsList />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default BatchTransfer;
+export default RecurringPayment;

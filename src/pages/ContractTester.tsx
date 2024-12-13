@@ -27,6 +27,24 @@ function Navbar() {
               Send Tokens
             </NavLink>
             <NavLink
+              to="/batch-transfer"
+              className="text-gray-600 hover:text-indigo-600 transition-colors"
+            >
+              Batch Transfer
+            </NavLink>
+            <NavLink
+              to="/send"
+              className="text-gray-600 hover:text-indigo-600 transition-colors"
+            >
+              Send Tokens
+            </NavLink>
+            <NavLink
+              to="/recurring-payment"
+              className="text-gray-600 hover:text-indigo-600 transition-colors"
+            >
+              Recurring Payments
+            </NavLink>
+            <NavLink
               to="#"
               className="text-gray-600 hover:text-indigo-600 transition-colors"
             >
@@ -47,12 +65,30 @@ function Navbar() {
 
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-b">
+          <div className=" flex flex-col px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-b">
+          <NavLink
+              to="/send"
+              className="text-gray-600 hover:text-indigo-600 transition-colors"
+            >
+              Send Tokens
+            </NavLink>
+            <NavLink
+              to="/batch-transfer"
+              className="text-gray-600 hover:text-indigo-600 transition-colors"
+            >
+              Batch Transfer
+            </NavLink>
             <NavLink
               to="/send"
               className="text-gray-600 hover:text-indigo-600 transition-colors"
             >
               Send Tokens
+            </NavLink>
+            <NavLink
+              to="/recurring-payment"
+              className="text-gray-600 hover:text-indigo-600 transition-colors"
+            >
+              Recurring Payments
             </NavLink>
             <NavLink
               to="#"

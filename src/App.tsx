@@ -3,6 +3,7 @@ import Landing from "./pages/Landing";
 import SendTransaction from "./pages/SendTransaction";
 import ContractTester from "./pages/ContractTester";
 import BatchTransfer from "./pages/BatchTransfer";
+import RecurringPayment from "./pages/RecurringPayment";
 import { WagmiProvider } from "wagmi";
 import { ConnectKitProvider } from "connectkit";
 import { config } from "../config/wagmi";
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/batch-transfer",
     element: <BatchTransfer />,
+  },
+  {
+    path: "/recurring-payment",
+    element: <RecurringPayment />,
   },
 ]);
 

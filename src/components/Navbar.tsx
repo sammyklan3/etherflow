@@ -10,10 +10,10 @@ export default function Navbar() {
     <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
       <div className="bg-black backdrop-blur-md text-gray-300">
         <Link
-          to="/batch-transfer"
+          to="/recurring-payment"
           className="text-sm flex justify-center gap-2 items-center"
         >
-          Batch Transfer feature now released!
+          Recurring payments are now available
           <ArrowRight className="text-green-500" />
         </Link>
       </div>
@@ -40,10 +40,10 @@ export default function Navbar() {
               How it Works
             </NavLink>
             <NavLink
-              to="/contract-tester"
+              to="/send"
               className="text-gray-600 hover:text-indigo-600 transition-colors"
             >
-              Test smart contracts
+              Send Tokens
             </NavLink>
             <NavLink
               to="#networks"
